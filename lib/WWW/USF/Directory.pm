@@ -311,10 +311,21 @@ Version 0.001
   # Make a directory object
   my $directory = WWW::USF::Directory->new();
 
+  # Make all searches return only staff
+  $directory->include_faculty(0);
+  $directory->include_staff(1);
+  $directory->include_students(0);
+
   # Search for people with the name "Jimmy"
-  foreach my $entry ($directory->search(name => 'Jimmy')) {
+  foreach my $staff ($directory->search(name => 'Jimmy')) {
       # Full Name: email@address
-      print $entry->full_name, ': ', $entry->email_address, "\n";
+      print $staff->full_name, ': ', $staff->email_address, "\n";
+  }
+
+  # This search will also include students
+  foreach my $entry ($directory->search(name => 'Barnes',
+                                        include_students => 1)) {
+      print $entry->full_name, "\n";
   }
 
 =head1 DESCRIPTION
