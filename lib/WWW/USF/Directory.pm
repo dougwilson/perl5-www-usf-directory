@@ -16,6 +16,9 @@ use MooseX::StrictConstructor 0.08;
 
 ###########################################################################
 # MOOSE TYPES
+use MooseX::Types::Moose qw(
+	Bool
+);
 use MooseX::Types::URI qw(
 	Uri
 );
@@ -26,8 +29,15 @@ use Encode;
 use HTML::HTML5::Parser 0.03;
 use List::MoreUtils 0.07;
 use Net::SAJAX 0.102;
+use Readonly 1.03;
 use WWW::USF::Directory::Entry;
 use WWW::USF::Directory::Exception;
+
+###########################################################################
+# PRIVATE CONSTANTS
+Readonly my $FACULTY_BIT  => 1;
+Readonly my $STAFF_BIT    => 2;
+Readonly my $STUDENTS_BIT => 4;
 
 ###########################################################################
 # ALL IMPORTS BEFORE THIS WILL BE ERASED
@@ -43,6 +53,27 @@ has 'directory_url' => (
 	coerce  => 1,
 	default => 'http://directory.acomp.usf.edu/',
 );
+has 'include_faculty' => (
+	is  => 'rw',
+	isa => Bool,
+
+	documentation => q{This determines if faculty should be returned in the search results},
+	default => 1,
+);
+has 'include_staff' => (
+	is  => 'rw',
+	isa => Bool,
+
+	documentation => q{This determines if staff should be returned in the search results},
+	default => 1,
+);
+has 'include_students' => (
+	is  => 'rw',
+	isa => Bool,
+
+	documentation => q{This determines if students should be returned in the search results},
+	default => 0,
+);
 
 ###########################################################################
 # METHODS
@@ -52,6 +83,32 @@ sub search {
 	# Unwrap the name from the arguments
 	my $name = $args{name};
 
+	# Get the inclusion from the arguments
+	my ($include_faculty, $include_staff, $include_students) =
+		@args{qw(include_faculty include_staff include_students)};
+
+	# Determine the inclusion of faculty
+	if (!defined $include_faculty) {
+		$include_faculty = $self->include_faculty
+	}
+
+	# Determine the inclusion of staff
+	if (!defined $include_staff) {
+		$include_staff = $self->include_staff;
+	}
+
+	# Determine the inclusion of students
+	if (!defined $include_students) {
+		$include_students = $self->include_students;
+	}
+
+	# Get the bit mask for the inclusion to send
+	my $inclusion_bitmask = _inclusion_bitmask(
+		include_faculty  => $include_faculty,
+		include_staff    => $include_staff,
+		include_students => $include_students,
+	);
+
 	# Make a SAJAX object
 	my $sajax = Net::SAJAX->new(
 		url => $self->directory_url->clone,
@@ -60,7 +117,7 @@ sub search {
 	# Make a SAJAX call for the results HTML
 	my $search_results_html = $sajax->call(
 		function  => 'liveSearch',
-		arguments => [$name, 7, q{}, q{}, q{}],
+		arguments => [$name, $inclusion_bitmask, q{}, q{}, q{}],
 	);
 
 	# Return the results
@@ -104,6 +161,30 @@ sub _clean_node_text_as_perl_name {
 
 	# Return the text
 	return $text;
+}
+sub _inclusion_bitmask {
+	my (%args) = @_;
+
+	# Create a default bitmask where nothing is selected
+	my $bitmask = 0;
+
+	if ($args{include_faculty}) {
+		# OR in the faculty bit
+		$bitmask |= $FACULTY_BIT;
+	}
+
+	if ($args{include_staff}) {
+		# OR in the staff bit
+		$bitmask |= $STAFF_BIT;
+	}
+
+	if ($args{include_students}) {
+		# OR in the students bit
+		$bitmask |= $STUDENTS_BIT;
+	}
+
+	# Return the bitmask
+	return $bitmask;
 }
 sub _parse_search_results_table {
 	my ($search_results_html) = @_;
@@ -250,6 +331,21 @@ This is the URL that commands are sent to in order to interact with the online
 directory. This can be a L<URI> object or a string. This will always return a
 L<URI> object.
 
+=head2 include_faculty
+
+This a Boolean of whether or not to include faculty in the search results. The
+default is true.
+
+=head2 include_staff
+
+This a Boolean of whether or not to include staff in the search results. The
+default is true.
+
+=head2 include_students
+
+This a Boolean of whether or not to include students in the search results. The
+default is false.
+
 =head1 METHODS
 
 =head2 search
@@ -263,6 +359,21 @@ takes a HASH as the argument with the following keys:
 =item name
 
 B<Required>. The name of the person to search for.
+
+=item include_faculty
+
+This a Boolean of whether or not to include faculty in the search results. The
+default is the value of the L</include_faculty> attribute.
+
+=item include_staff
+
+This a Boolean of whether or not to include staff in the search results. The
+default is the value of the L</include_staff> attribute.
+
+=item include_students
+
+This a Boolean of whether or not to include students in the search results. The
+default is the value of the L</include_students> attribute.
 
 =back
 
