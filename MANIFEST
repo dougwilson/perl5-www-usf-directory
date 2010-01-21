@@ -13,6 +13,7 @@ lib/WWW/USF/Directory.pm
 lib/WWW/USF/Directory/Entry.pm
 lib/WWW/USF/Directory/Exception.pm
 lib/WWW/USF/Directory/Exception/TooManyResults.pm
+lib/WWW/USF/Directory/Exception/UnknownResponse.pm
 Makefile.PL
 MANIFEST			This list of files
 META.yml
