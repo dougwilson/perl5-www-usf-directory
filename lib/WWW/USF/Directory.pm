@@ -262,6 +262,11 @@ sub _table_row_to_entry {
 	# Delete all keys with blank content
 	delete @row{grep { length $row{$_} == 0 } keys %row};
 
+	if (exists $row{campus_phone}) {
+		# Reformat the phone number
+		$row{campus_phone} =~ s{\D+}{-}gmsx;
+	}
+
 	if (exists $row{given_name}) {
 		# Split on vertical whitespace
 		my @given_names = split m{\v+}msx, $row{given_name};
