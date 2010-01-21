@@ -150,6 +150,10 @@ L</ATTRIBUTES> section).
 
 This is the family name of the entry.
 
+=head1 METHODS
+
+This class does not contain any methods.
+
 =head1 DEPENDENCIES
 
 =over 4
