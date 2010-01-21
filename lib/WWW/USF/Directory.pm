@@ -262,6 +262,11 @@ sub _table_row_to_entry {
 	# Delete all keys with blank content
 	delete @row{grep { length $row{$_} == 0 } keys %row};
 
+	if (exists $row{given_name}) {
+		# Remove vertical whitespace from the given name
+		$row{given_name} =~ s{\h*\v+\h*}{ }gmsx;
+	}
+
 	# Make a new entry for the result
 	my $entry = WWW::USF::Directory::Entry->new(%row);
 
