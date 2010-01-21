@@ -198,21 +198,28 @@ sub _parse_search_results_table {
 	# Get the first heading level 3 element
 	my $heading = $document->getElementsByTagName('h3')->get_node(1);
 
-	# Determine if the response thinks there are too many results
-	if (defined $heading && $heading->textContent eq 'Too many results') {
-		# Get the first paragraph element in the content
-		my $paragraph = $document->getElementsByTagName('p')->get_node(1);
+	if (defined $heading) {
+		# Determine if the response thinks there are too many results
+		if ($heading->textContent eq 'Too many results') {
+			# Get the first paragraph element in the content
+			my $paragraph = $document->getElementsByTagName('p')->get_node(1);
 
-		if (defined $paragraph && $paragraph->textContent =~ m{(\d+) \s+ matches}msx) {
-			# Store the max results from the regular expression
-			my $max_results = $1;
+			if (defined $paragraph && $paragraph->textContent =~ m{(\d+) \s+ matches}msx) {
+				# Store the max results from the regular expression
+				my $max_results = $1;
 
-			# Throw a TooManyResults exception
-			WWW::USF::Directory::Exception->throw(
-				class       => 'TooManyResults',
-				message     => 'The search returned too many results',
-				max_results => $max_results,
-			);
+				# Throw a TooManyResults exception
+				WWW::USF::Directory::Exception->throw(
+					class       => 'TooManyResults',
+					message     => 'The search returned too many results',
+					max_results => $max_results,
+				);
+			}
+		}
+		# Determine if the response had no results
+		elsif ($heading->textContent eq '0 matches found') {
+			# Return nothing
+			return;
 		}
 	}
 
