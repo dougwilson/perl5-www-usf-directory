@@ -14,7 +14,9 @@ resources repository => 'git://github.com/dougwilson/perl5-www-usf-directory.git
 
 # Modules that are required
 requires
+	'Carp'                      => 0,
 	'Encode'                    => 0,
+	'English'                   => 0,
 	'HTML::HTML5::Parser'       => '0.03',
 	'List::MoreUtils'           => '0.07',
 	'Moose'                     => '0.89',

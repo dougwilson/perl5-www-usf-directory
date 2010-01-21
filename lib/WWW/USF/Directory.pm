@@ -27,6 +27,7 @@ use HTML::HTML5::Parser 0.03;
 use List::MoreUtils 0.07;
 use Net::SAJAX 0.102;
 use WWW::USF::Directory::Entry;
+use WWW::USF::Directory::Exception;
 
 ###########################################################################
 # ALL IMPORTS BEFORE THIS WILL BE ERASED
@@ -113,11 +114,37 @@ sub _parse_search_results_table {
 	# Parse the HTML into a document
 	my $document = $parser->parse_string($search_results_html);
 
+	# Get the first heading level 3 element
+	my $heading = $document->getElementsByTagName('h3')->get_node(1);
+
+	# Determine if the response thinks there are too many results
+	if (defined $heading && $heading->textContent eq 'Too many results') {
+		# Get the first paragraph element in the content
+		my $paragraph = $document->getElementsByTagName('p')->get_node(1);
+
+		if (defined $paragraph && $paragraph->textContent =~ m{(\d+) \s+ matches}msx) {
+			# Store the max results from the regular expression
+			my $max_results = $1;
+
+			# Throw a TooManyResults exception
+			WWW::USF::Directory::Exception->throw(
+				class       => 'TooManyResults',
+				message     => 'The search returned too many results',
+				max_results => $max_results,
+			);
+		}
+	}
+
 	# Get the first table in the response
 	my $search_results_table = $document->getElementsByTagName('table')->shift;
 
 	if (!defined $search_results_table) {
-		confess 'The response from the server did not contain a results table';
+		# Don't know how to handle the response, so throw exception
+		WWW::USF::Directory::Exception->throw(
+			class         => 'UnknownResponse',
+			message       => 'The response from the server did not contain a results table',
+			response_body => $search_results_html,
+		);
 	}
 
 	# Get all the table rows
