@@ -263,8 +263,24 @@ sub _table_row_to_entry {
 	delete @row{grep { length $row{$_} == 0 } keys %row};
 
 	if (exists $row{given_name}) {
+		# Split on vertical whitespace
+		my @given_names = split m{\v+}msx, $row{given_name};
+
+		# The first two given names are as follows
+		my ($first_name, $middle_name) = @given_names;
+
+		if (defined $first_name) {
+			# Set the first name
+			$row{first_name} = $first_name;
+		}
+
+		if (defined $middle_name) {
+			# Set the middle name
+			$row{middle_name} = $middle_name;
+		}
+
 		# Remove vertical whitespace from the given name
-		$row{given_name} =~ s{\h*\v+\h*}{ }gmsx;
+		$row{given_name} = join q{ }, @given_names;
 	}
 
 	# Make a new entry for the result
