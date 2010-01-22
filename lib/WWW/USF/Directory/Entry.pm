@@ -31,7 +31,7 @@ use namespace::clean 0.04 -except => [qw(meta)];
 # ATTRIBUTES
 has 'affiliations' => (
 	is  => 'ro',
-	isa => 'ArrayRef',
+	isa => 'ArrayRef[WWW::USF::Directory::Entry::Affiliation]',
 
 	default       => sub { [] },
 	documentation => q{This is the list of affilitations to USF},

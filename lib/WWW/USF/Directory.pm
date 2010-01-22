@@ -31,6 +31,7 @@ use List::MoreUtils 0.07;
 use Net::SAJAX 0.102;
 use Readonly 1.03;
 use WWW::USF::Directory::Entry;
+use WWW::USF::Directory::Entry::Affiliation;
 use WWW::USF::Directory::Exception;
 
 ###########################################################################
@@ -422,6 +423,10 @@ sub _table_row_to_entry {
 	if (exists $row{affiliation}) {
 		# There could be zero or more affiliations seperated by vertical space
 		my @affiliations = split m{\h*\v+\h*}, delete $row{affiliation};
+
+		# Change the affiliation to objects
+		@affiliations = map { WWW::USF::Directory::Entry::Affiliation->new($_) }
+			@affiliations;
 
 		# Store the affiliations
 		$row{affiliations} = \@affiliations;
