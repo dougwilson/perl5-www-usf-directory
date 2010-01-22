@@ -27,8 +27,14 @@ provides:
   WWW::USF::Directory::Entry:
     file: lib/WWW/USF/Directory/Entry.pm
     version: 0.001
+  WWW::USF::Directory::Entry::Affiliation:
+    file: lib/WWW/USF/Directory/Entry/Affiliation.pm
+    version: 0.001
   WWW::USF::Directory::Exception:
     file: lib/WWW/USF/Directory/Exception.pm
+    version: 0.001
+  WWW::USF::Directory::Exception::MethodArguments:
+    file: lib/WWW/USF/Directory/Exception/MethodArguments.pm
     version: 0.001
   WWW::USF::Directory::Exception::TooManyResults:
     file: lib/WWW/USF/Directory/Exception/TooManyResults.pm

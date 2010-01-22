@@ -112,6 +112,27 @@ sub search {
 	# Unwrap the name from the arguments
 	my $name = $args{name};
 
+	if (!defined $name) {
+		# "name" is a required argument
+		WWW::USF::Directory::Exception->throw(
+			class    => 'MethodArguments',
+			message  => 'The argument "name" is required',
+			argument => 'name',
+			method   => 'search',
+		);
+	}
+
+	if (length $name == 0) {
+		# "name" cannot be empty
+		WWW::USF::Directory::Exception->throw(
+			class          => 'MethodArguments',
+			message        => 'The argument "name" cannot be an empty string',
+			argument       => 'name',
+			argument_value => $name,
+			method         => 'search',
+		);
+	}
+
 	# Get the inclusion from the arguments
 	my ($include_faculty, $include_staff, $include_students) =
 		@args{qw(include_faculty include_staff include_students)};
@@ -174,14 +195,22 @@ sub _advanced_search_parameter_id {
 	if (!defined $list) {
 		# The category doesn't exist
 		WWW::USF::Directory::Exception->throw(
-			message => 'The category provided for the advanced search parameter does not exist',
+			class          => 'MethodArguments',
+			message        => 'The category provided for the advanced search parameter does not exist',
+			argument       => 'category',
+			argument_value => $category,
+			method         => '_advanced_search_parameter_id',
 		);
 	}
 
 	if (!exists $list->{$name}) {
 		# The name doesn't exist
 		WWW::USF::Directory::Exception->throw(
-			message => sprintf 'Unable to locate the given %s', $category
+			class          => 'MethodArguments',
+			message        => sprintf 'Unable to locate the given %s', $category,
+			argument       => 'name',
+			argument_value => $name,
+			method         => '_advanced_search_parameter_id',
 		);
 	}
 
