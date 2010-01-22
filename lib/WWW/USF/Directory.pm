@@ -260,7 +260,7 @@ sub _table_row_to_entry {
 	my %row = List::MoreUtils::mesh @{$table_header}, @row_content;
 
 	# Delete all keys with blank content
-	delete @row{grep { length $row{$_} == 0 } keys %row};
+	delete @row{grep { $row{$_} =~ m{\A \p{IsSpace}* \z}msx } keys %row};
 
 	if (exists $row{campus_phone}) {
 		# Reformat the phone number
@@ -283,9 +283,11 @@ sub _table_row_to_entry {
 			# Set the middle name
 			$row{middle_name} = $middle_name;
 		}
+	}
 
-		# Remove vertical whitespace from the given name
-		$row{given_name} = join q{ }, @given_names;
+	# Remove vertical whitespace from all values
+	foreach my $key (keys %row) {
+		$row{$key} =~ s{\h*\v+\h*}{ }gmsx;
 	}
 
 	# Make a new entry for the result
