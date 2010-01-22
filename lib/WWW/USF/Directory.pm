@@ -462,10 +462,10 @@ sub _table_row_to_entry {
 	}
 
 	# Remove vertical whitespace from all non-reference values
-	foreach my $key (keys %row) {
-		if (ref $row{$key} eq q{}) {
+	foreach my $value (values %row) {
+		if (ref $value eq q{}) {
 			# A string, so remove vertical whitespace
-			$row{$key} =~ s{\h*\v+\h*}{ }gmsx;
+			$value =~ s{\h*\v+\h*}{ }gmsx;
 		}
 	}
 
