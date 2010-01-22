@@ -451,7 +451,7 @@ sub _table_row_to_entry {
 
 	if (exists $row{affiliation}) {
 		# There could be zero or more affiliations seperated by vertical space
-		my @affiliations = split m{\h*\v+\h*}, delete $row{affiliation};
+		my @affiliations = split m{\h*\v+\h*}msx, delete $row{affiliation};
 
 		# Change the affiliation to objects
 		@affiliations = map { WWW::USF::Directory::Entry::Affiliation->new($_) }
