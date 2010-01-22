@@ -419,9 +419,20 @@ sub _table_row_to_entry {
 		}
 	}
 
-	# Remove vertical whitespace from all values
+	if (exists $row{affiliation}) {
+		# There could be zero or more affiliations seperated by vertical space
+		my @affiliations = split m{\h*\v+\h*}, delete $row{affiliation};
+
+		# Store the affiliations
+		$row{affiliations} = \@affiliations;
+	}
+
+	# Remove vertical whitespace from all non-reference values
 	foreach my $key (keys %row) {
-		$row{$key} =~ s{\h*\v+\h*}{ }gmsx;
+		if (ref $row{$key} eq q{}) {
+			# A string, so remove vertical whitespace
+			$row{$key} =~ s{\h*\v+\h*}{ }gmsx;
+		}
 	}
 
 	if (exists $row{campus_phone}) {

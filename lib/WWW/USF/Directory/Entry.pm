@@ -29,13 +29,12 @@ use namespace::clean 0.04 -except => [qw(meta)];
 
 ###########################################################################
 # ATTRIBUTES
-has 'affiliation' => (
+has 'affiliations' => (
 	is  => 'ro',
-	isa => NonEmptySimpleStr,
+	isa => 'ArrayRef',
 
-	documentation => q{This is the affilitation to USF},
-	clearer       => '_clear_affiliation',
-	predicate     => 'has_affiliation',
+	default       => sub { [] },
+	documentation => q{This is the list of affilitations to USF},
 );
 has 'campus' => (
 	is  => 'ro',
@@ -173,9 +172,9 @@ L</ATTRIBUTES> section).
   # Get an attribute
   my $value = $object->attribute_name;
 
-=head2 affiliation
+=head2 affiliations
 
-This is the affilitation to USF.
+This is the list of affilitations to USF.
 
 =head2 campus
 
@@ -219,10 +218,6 @@ This is the middle name.
 
 This will return the full name, which is the given name and the family name
 joined with a space.
-
-=head2 has_affiliation
-
-This returns a Boolean of if the L</affiliation> attribute is set.
 
 =head2 has_campus
 
