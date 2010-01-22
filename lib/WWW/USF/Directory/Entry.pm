@@ -16,8 +16,11 @@ use MooseX::StrictConstructor 0.08;
 
 ###########################################################################
 # MOOSE TYPES
-use MooseX::Types::Moose qw(
-	Str
+use MooseX::Types::Common::String qw(
+	NonEmptySimpleStr
+);
+use MooseX::Types::Email qw(
+	EmailAddress
 );
 
 ###########################################################################
@@ -28,7 +31,7 @@ use namespace::clean 0.04 -except => [qw(meta)];
 # ATTRIBUTES
 has 'affiliation' => (
 	is  => 'ro',
-	isa => Str,
+	isa => NonEmptySimpleStr,
 
 	documentation => q{This is the affilitation to USF},
 	clearer       => '_clear_affiliation',
@@ -36,7 +39,7 @@ has 'affiliation' => (
 );
 has 'campus' => (
 	is  => 'ro',
-	isa => Str,
+	isa => NonEmptySimpleStr,
 
 	documentation => q{This is the campus the entry is affiliated with},
 	clearer       => '_clear_campus',
@@ -44,7 +47,7 @@ has 'campus' => (
 );
 has 'campus_mailstop' => (
 	is  => 'ro',
-	isa => Str,
+	isa => NonEmptySimpleStr,
 
 	documentation => q{This is the mailstop for he entry on campus},
 	clearer       => '_clear_campus_mailstop',
@@ -52,7 +55,7 @@ has 'campus_mailstop' => (
 );
 has 'campus_phone' => (
 	is  => 'ro',
-	isa => Str,
+	isa => NonEmptySimpleStr,
 
 	documentation => q{This is the campus phone number},
 	clearer       => '_clear_campus_phone',
@@ -60,7 +63,7 @@ has 'campus_phone' => (
 );
 has 'college' => (
 	is  => 'ro',
-	isa => Str,
+	isa => NonEmptySimpleStr,
 
 	documentation => q{This is the college the entry is affiliated with},
 	clearer       => '_clear_college',
@@ -68,7 +71,7 @@ has 'college' => (
 );
 has 'email' => (
 	is  => 'ro',
-	isa => Str,
+	isa => EmailAddress,
 
 	documentation => q{This is the e-mail address},
 	clearer       => '_clear_email',
@@ -76,28 +79,28 @@ has 'email' => (
 );
 has 'family_name' => (
 	is  => 'ro',
-	isa => Str,
+	isa => NonEmptySimpleStr,
 
 	documentation => q{This is the family name},
 	required      => 1,
 );
 has 'first_name' => (
 	is  => 'ro',
-	isa => Str,
+	isa => NonEmptySimpleStr,
 
 	documentation => q{This is the first name},
 	required      => 1,
 );
 has 'given_name' => (
 	is  => 'ro',
-	isa => Str,
+	isa => NonEmptySimpleStr,
 
 	documentation => q{This is the given name},
 	required      => 1,
 );
 has 'middle_name' => (
 	is  => 'ro',
-	isa => Str,
+	isa => NonEmptySimpleStr,
 
 	documentation => q{This is the middle name},
 	clearer       => '_clear_middle_name',

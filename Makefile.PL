@@ -22,6 +22,8 @@ requires
 	'Moose'                     => '0.89',
 	'MooseX::StrictConstructor' => '0.08',
 	'MooseX::Types'             => '0.08',
+	'MooseX::Types::Common'     => 0,
+	'MooseX::Types::Email'      => 0,
 	'MooseX::Types::Moose'      => 0,
 	'MooseX::Types::URI'        => 0,
 	'Net::SAJAX'                => '0.102',
