@@ -76,7 +76,35 @@ has 'include_students' => (
 );
 
 ###########################################################################
+# PRIVATE ATTRIBUTES
+has '_advanced_search_parameters' => (
+	is  => 'rw',
+	isa => 'HashRef',
+
+	builder => '_build_advanced_search_parameters',
+	lazy    => 1,
+);
+
+###########################################################################
 # METHODS
+sub campus_list {
+	my ($self) = @_;
+
+	# Return the list of campuses
+	return $self->_advanced_search_parameter_list('campus');
+}
+sub college_list {
+	my ($self) = @_;
+
+	# Return the list of colleges
+	return $self->_advanced_search_parameter_list('college');
+}
+sub department_list {
+	my ($self) = @_;
+
+	# Return the list of departments
+	return $self->_advanced_search_parameter_list('department');
+}
 sub search {
 	my ($self, %args) = @_;
 
@@ -109,6 +137,11 @@ sub search {
 		include_students => $include_students,
 	);
 
+	# Get the advanced search parameters
+	my ($campus, $college, $department) =
+		map { $self->_advanced_search_parameter_id($_ => $args{$_}) }
+		qw(campus college department);
+
 	# Make a SAJAX object
 	my $sajax = Net::SAJAX->new(
 		url => $self->directory_url->clone,
@@ -117,11 +150,110 @@ sub search {
 	# Make a SAJAX call for the results HTML
 	my $search_results_html = $sajax->call(
 		function  => 'liveSearch',
-		arguments => [$name, $inclusion_bitmask, q{}, q{}, q{}],
+		arguments => [$name, $inclusion_bitmask, $campus, $college, $department],
 	);
 
 	# Return the results
 	return _parse_search_results_table($search_results_html);
+}
+
+###########################################################################
+# PRIVATE METHODS
+sub _advanced_search_parameter_id {
+	my ($self, $category, $name) = @_;
+
+	if (!defined $name) {
+		# Undefined parameter name has a blank value
+		return q{};
+	}
+
+	# Get the category list
+	my $list = $self->_advanced_search_parameters->{$category};
+
+	if (!defined $list) {
+		# The category doesn't exist
+		WWW::USF::Directory::Exception->throw(
+			message => 'The category provided for the advanced search parameter does not exist',
+		);
+	}
+
+	if (!exists $list->{$name}) {
+		# The name doesn't exist
+		WWW::USF::Directory::Exception->throw(
+			message => sprintf 'Unable to locate the given %s', $category
+		);
+	}
+
+	# Return the lookup
+	return $list->{$name};
+}
+sub _advanced_search_parameter_list {
+	my ($self, $category) = @_;
+
+	# Get the sorted list of names
+	my @names = sort keys %{$self->_advanced_search_parameters->{$category}};
+
+	# Return the list nof keys in the category
+	return @names;
+}
+sub _build_advanced_search_parameters {
+	# This will get the advanced categories and save them in the attribute
+	return shift->_get_advanced_categories;
+}
+sub _get_advanced_categories {
+	my ($self) = @_;
+
+	# Make a SAJAX object
+	my $sajax = Net::SAJAX->new(
+		url => $self->directory_url->clone,
+	);
+
+	# Make a SAJAX call for the results HTML
+	my $advanced_menu_html = $sajax->call(
+		function  => 'advSearch',
+		arguments => [q{}, q{}, q{}],
+	);
+
+	# Create a new HTML parser
+	my $parser = HTML::HTML5::Parser->new;
+
+	# Parse the HTML into a document
+	my $document = $parser->parse_string($advanced_menu_html);
+
+	# Select ID -> nice name map
+	my %nice_name_of = (
+		camp => 'campus',
+		colg => 'college',
+		dept => 'department',
+	);
+
+	# This will hold the options
+	my %categories;
+
+	# Cycle through all the select elements on the page
+	SELECT: foreach my $select ($document->getElementsByTagName('select')) {
+		if (!$select->hasAttribute('id')) {
+			# Go to the next select element, as this is not important
+			next SELECT;
+		}
+
+		# Get the element's ID
+		my $id = $select->getAttribute('id');
+
+		if (exists $nice_name_of{$id}) {
+			# Get the select as key value pair
+			my %menu = _select_node_to_hash($select);
+
+			# Delete the "Any" entry
+			delete $menu{Any};
+
+			# Save this to the categories under the nice name
+			$categories{$nice_name_of{$id}} = \%menu;
+		}
+	}
+
+	# Return a hash reference to the categories
+	return \%categories;
 }
 
 ###########################################################################
@@ -249,6 +381,13 @@ sub _parse_search_results_table {
 
 	return @results;
 }
+sub _select_node_to_hash {
+	my ($select_node) = @_;
+
+	return map { ($_->getAttribute('value'), _clean_node_text($_)) }
+		grep { $_->hasAttribute('value') }
+		$select_node->getChildrenByTagName('option');
+}
 sub _table_row_to_entry {
 	my ($tr_node, $table_header) = @_;
 
@@ -333,7 +472,15 @@ Version 0.001
   foreach my $entry ($directory->search(name => 'Barnes',
                                         include_students => 1)) {
       print $entry->full_name, "\n";
+
+  # This search will be in the Tampa campus
+  foreach my $entry ($directory->search(name => 'Williams',
+                                        campus => 'Tampa')) {
+      print $entry->full_name, "\n";
   }
+
+  # Print out the list of colleges
+  print join "\n", $directory->college_list, q{};
 
 =head1 DESCRIPTION
 
@@ -394,6 +541,18 @@ default is false.
 
 =head1 METHODS
 
+=head2 campus_list
+
+This will return a list of strings that are the names of the campuses.
+
+=head2 college_list
+
+This will return a list of strings that are the names of the colleges.
+
+=head2 department_list
+
+This will return a list of strings that are the names of the departments.
+
 =head2 search
 
 This will search the online directory and return an array of
@@ -401,6 +560,22 @@ L<WWW::USF::Directory::Entry> objects as the results of the search. This method
 takes a HASH as the argument with the following keys:
 
 =over 4
+
+=item campus
+
+This is the string name of the campus to search in. A list of possible entries
+can be retrieved using L</campus_list>. The default to to search all campuses.
+
+=item college
+
+This is the string name of the college to search in. A list of possible entries
+can be retrieved using L</college_list>. The default is to search all colleges.
+
+=item department
+
+This is the string name of the department to search in. A list of possible
+entries can be retrieved using L</department_list>. The default is to search
+all departments.
 
 =item name
 
