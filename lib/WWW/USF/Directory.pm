@@ -454,8 +454,9 @@ sub _table_row_to_entry {
 		my @affiliations = split m{\h*\v+\h*}msx, delete $row{affiliation};
 
 		# Change the affiliation to objects
-		@affiliations = map { WWW::USF::Directory::Entry::Affiliation->new($_) }
-			@affiliations;
+		foreach my $affiliation (@affiliations) {
+			$affiliation = WWW::USF::Directory::Entry::Affiliation->new($affiliation);
+		}
 
 		# Store the affiliations
 		$row{affiliations} = \@affiliations;
