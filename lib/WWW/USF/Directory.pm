@@ -401,11 +401,6 @@ sub _table_row_to_entry {
 	# Delete all keys with blank content
 	delete @row{grep { $row{$_} =~ m{\A \p{IsSpace}* \z}msx } keys %row};
 
-	if (exists $row{campus_phone}) {
-		# Reformat the phone number
-		$row{campus_phone} =~ s{\D+}{-}gmsx;
-	}
-
 	if (exists $row{given_name}) {
 		# Split on vertical whitespace
 		my @given_names = split m{\v+}msx, $row{given_name};
@@ -427,6 +422,17 @@ sub _table_row_to_entry {
 	# Remove vertical whitespace from all values
 	foreach my $key (keys %row) {
 		$row{$key} =~ s{\h*\v+\h*}{ }gmsx;
+	}
+
+	if (exists $row{campus_phone}) {
+		# Remove all non-letters and non-numbers
+		$row{campus_phone} =~ s{[^a-z0-9]+}{}gimsx;
+
+		# Remove the U.S. country code if present
+		$row{campus_phone} =~ s{\A \+ 1}{}msx;
+
+		# Reformat the phone number
+		$row{campus_phone} =~ s{\A (\d{3}) (\d{3}) (\d{4}) \z}{+1 $1 $2 $3}msx;
 	}
 
 	# Make a new entry for the result
