@@ -241,18 +241,6 @@ sub _advanced_search_parameter_list {
 	# Return the list nof keys in the category
 	return @names;
 }
-sub _build_advanced_search_parameters {
-	# This will get the advanced categories and save them in the attribute
-	return shift->_get_advanced_categories;
-}
-sub _build_sajax {
-	my ($self) = @_;
-
-	# This will return a SAJAX object with default options
-	return Net::SAJAX->new(
-		url => URI->new($self->directory_url->clone),
-	);
-}
 sub _get_advanced_categories {
 	my ($self) = @_;
 
@@ -311,6 +299,21 @@ sub _get_advanced_categories {
 
 	# Return a hash reference to the categories
 	return \%categories;
+}
+
+###########################################################################
+# PRIVATE BUILDERS
+sub _build_advanced_search_parameters {
+	# This will get the advanced categories and save them in the attribute
+	return shift->_get_advanced_categories;
+}
+sub _build_sajax {
+	my ($self) = @_;
+
+	# This will return a SAJAX object with default options
+	return Net::SAJAX->new(
+		url => URI->new($self->directory_url->clone),
+	);
 }
 
 ###########################################################################
