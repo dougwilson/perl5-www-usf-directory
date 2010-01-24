@@ -53,6 +53,7 @@ has 'directory_url' => (
 	documentation => q{This is the URL of the directory page were the requests are made},
 	coerce  => 1,
 	default => 'http://directory.acomp.usf.edu/',
+	trigger => sub { shift->_sajax->url(shift); }, # Update the SAJAX URL
 );
 has 'include_faculty' => (
 	is  => 'rw',
@@ -84,6 +85,16 @@ has '_advanced_search_parameters' => (
 
 	builder => '_build_advanced_search_parameters',
 	lazy    => 1,
+);
+has '_sajax' => (
+	is  => 'rw',
+	isa => 'Net::SAJAX',
+
+	builder => '_build_sajax',
+	lazy    => 1,
+	handles => {
+		user_agent => 'user_agent',
+	},
 );
 
 ###########################################################################
@@ -164,13 +175,8 @@ sub search {
 		map { $self->_advanced_search_parameter_id($_ => $args{$_}) }
 		qw(campus college department);
 
-	# Make a SAJAX object
-	my $sajax = Net::SAJAX->new(
-		url => $self->directory_url->clone,
-	);
-
 	# Make a SAJAX call for the results HTML
-	my $search_results = $sajax->call(
+	my $search_results = $self->_sajax->call(
 		function  => 'liveSearch',
 		arguments => [$name, $inclusion_bitmask, $campus, $college, $department],
 	);
@@ -239,16 +245,19 @@ sub _build_advanced_search_parameters {
 	# This will get the advanced categories and save them in the attribute
 	return shift->_get_advanced_categories;
 }
+sub _build_sajax {
+	my ($self) = @_;
+
+	# This will return a SAJAX object with default options
+	return Net::SAJAX->new(
+		url => URI->new($self->directory_url->clone),
+	);
+}
 sub _get_advanced_categories {
 	my ($self) = @_;
 
-	# Make a SAJAX object
-	my $sajax = Net::SAJAX->new(
-		url => $self->directory_url->clone,
-	);
-
 	# Make a SAJAX call for the results HTML
-	my $advanced_menu_html = $sajax->call(
+	my $advanced_menu_html = $self->_sajax->call(
 		function  => 'advSearch',
 		arguments => [q{}, q{}, q{}],
 	);
@@ -599,6 +608,12 @@ default is true.
 
 This a Boolean of whether or not to include students in the search results. The
 default is false.
+
+=head2 user_agent
+
+This is the user agent that will be used to make the HTTP requests. This
+internally maps to the user agent in the L<Net::SAJAX> object and the default
+is the default for L<Net::SAJAX>.
 
 =head1 METHODS
 
