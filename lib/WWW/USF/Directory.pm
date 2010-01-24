@@ -170,13 +170,22 @@ sub search {
 	);
 
 	# Make a SAJAX call for the results HTML
-	my $search_results_html = $sajax->call(
+	my $search_results = $sajax->call(
 		function  => 'liveSearch',
 		arguments => [$name, $inclusion_bitmask, $campus, $college, $department],
 	);
 
+	if (ref $search_results ne q{}) {
+		# The response was not a plain string
+		WWW::USF::Directory::Exception->throw(
+			class         => 'UnknownResponse',
+			message       => 'The response from the server was not a plain string',
+			ajax_response => $search_results,
+		);
+	}
+
 	# Return the results
-	return _parse_search_results_table($search_results_html);
+	return _parse_search_results_table($search_results);
 }
 
 ###########################################################################
@@ -393,7 +402,7 @@ sub _parse_search_results_table {
 		WWW::USF::Directory::Exception->throw(
 			class         => 'UnknownResponse',
 			message       => 'The response from the server did not contain a results table',
-			response_body => $search_results_html,
+			ajax_response => $search_results_html,
 		);
 	}
 

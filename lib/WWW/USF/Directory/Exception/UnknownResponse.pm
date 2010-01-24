@@ -30,11 +30,11 @@ use namespace::clean 0.04 -except => [qw(meta)];
 
 ###############################################################################
 # ATTRIBUTES
-has response_body => (
+has ajax_response => (
 	is  => 'ro',
 	isa => Str,
 
-	documentation => q{The body of the response that is unknown},
+	documentation => q{The scalar returned by the JavaScript AJAX request},
 	required      => 1,
 );
 
@@ -60,8 +60,8 @@ Version 0.001
   use WWW::USF::Directory::Exception::UnknownResponse;
 
   WWW::USF::Directory::Exception::UnknownResponse->throw(
-    message  => 'This response has no handler',
-    response => $response,
+    message       => 'This response has no handler',
+    ajax_response => $object,
   );
 
 =head1 DESCRIPTION
@@ -77,9 +77,10 @@ all attributes and methods in that class are also in this class.
 
 =head1 ATTRIBUTES
 
-=head2 response_body
+=head2 ajax_response
 
-B<Required>. This is a string that contains the response body.
+B<Required>. This is the scalar that was returned by the AJAX request to the
+directory site.
 
 =head1 METHODS
 
