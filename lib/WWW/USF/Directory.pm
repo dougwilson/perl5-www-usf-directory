@@ -262,6 +262,15 @@ sub _get_advanced_categories {
 		arguments => [q{}, q{}, q{}],
 	);
 
+	if (ref $advanced_menu_html ne q{}) {
+		# The response was not a plain string
+		WWW::USF::Directory::Exception->throw(
+			class         => 'UnknownResponse',
+			message       => 'The response from the server was not a plain string',
+			ajax_response => $advanced_menu_html,
+		);
+	}
+
 	# Create a new HTML parser
 	my $parser = HTML::HTML5::Parser->new;
 
