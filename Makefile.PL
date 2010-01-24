@@ -27,6 +27,7 @@ requires
 	'MooseX::Types::Moose'      => 0,
 	'MooseX::Types::URI'        => 0,
 	'Net::SAJAX'                => '0.102',
+	'URI'                       => 0,
 	'namespace::clean'          => '0.04';
 
 # Modules that are required for tests in t/

@@ -30,6 +30,7 @@ use HTML::HTML5::Parser 0.03;
 use List::MoreUtils 0.07;
 use Net::SAJAX 0.102;
 use Readonly 1.03;
+use URI;
 use WWW::USF::Directory::Entry;
 use WWW::USF::Directory::Entry::Affiliation;
 use WWW::USF::Directory::Exception;
