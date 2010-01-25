@@ -738,6 +738,9 @@ Douglas Christopher Wilson, C<< <doug at somethingdoug.com> >>
 
 =head1 BUGS AND LIMITATIONS
 
+There are no indended limitations, and so if you find a feature in the USF
+directory that is not implemented here, please let me know.
+
 Please report any bugs or feature requests to
 C<bug-www-usf-directory at rt.cpan.org>, or through the web interface at
 L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=WWW-USF-Directory>. I
