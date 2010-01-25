@@ -16,8 +16,11 @@ use MooseX::StrictConstructor 0.08;
 
 ###########################################################################
 # MOOSE TYPES
-use MooseX::Types::Moose qw(
-	Str
+use MooseX::Types::Common::String qw(
+	NonEmptySimpleStr
+);
+use MooseX::Types::Email qw(
+	EmailAddress
 );
 
 ###########################################################################
@@ -26,17 +29,16 @@ use namespace::clean 0.04 -except => [qw(meta)];
 
 ###########################################################################
 # ATTRIBUTES
-has 'affiliation' => (
+has 'affiliations' => (
 	is  => 'ro',
-	isa => Str,
+	isa => 'ArrayRef[WWW::USF::Directory::Entry::Affiliation]',
 
-	documentation => q{This is the affilitation to USF},
-	clearer       => '_clear_affiliation',
-	predicate     => 'has_affiliation',
+	default       => sub { [] },
+	documentation => q{This is the list of affilitations to USF},
 );
 has 'campus' => (
 	is  => 'ro',
-	isa => Str,
+	isa => NonEmptySimpleStr,
 
 	documentation => q{This is the campus the entry is affiliated with},
 	clearer       => '_clear_campus',
@@ -44,7 +46,7 @@ has 'campus' => (
 );
 has 'campus_mailstop' => (
 	is  => 'ro',
-	isa => Str,
+	isa => NonEmptySimpleStr,
 
 	documentation => q{This is the mailstop for he entry on campus},
 	clearer       => '_clear_campus_mailstop',
@@ -52,7 +54,7 @@ has 'campus_mailstop' => (
 );
 has 'campus_phone' => (
 	is  => 'ro',
-	isa => Str,
+	isa => NonEmptySimpleStr,
 
 	documentation => q{This is the campus phone number},
 	clearer       => '_clear_campus_phone',
@@ -60,7 +62,7 @@ has 'campus_phone' => (
 );
 has 'college' => (
 	is  => 'ro',
-	isa => Str,
+	isa => NonEmptySimpleStr,
 
 	documentation => q{This is the college the entry is affiliated with},
 	clearer       => '_clear_college',
@@ -68,7 +70,7 @@ has 'college' => (
 );
 has 'email' => (
 	is  => 'ro',
-	isa => Str,
+	isa => EmailAddress,
 
 	documentation => q{This is the e-mail address},
 	clearer       => '_clear_email',
@@ -76,18 +78,42 @@ has 'email' => (
 );
 has 'family_name' => (
 	is  => 'ro',
-	isa => Str,
+	isa => NonEmptySimpleStr,
 
 	documentation => q{This is the family name},
 	required      => 1,
 );
+has 'first_name' => (
+	is  => 'ro',
+	isa => NonEmptySimpleStr,
+
+	documentation => q{This is the first name},
+	required      => 1,
+);
 has 'given_name' => (
 	is  => 'ro',
-	isa => Str,
+	isa => NonEmptySimpleStr,
 
 	documentation => q{This is the given name},
 	required      => 1,
 );
+has 'middle_name' => (
+	is  => 'ro',
+	isa => NonEmptySimpleStr,
+
+	documentation => q{This is the middle name},
+	clearer       => '_clear_middle_name',
+	predicate     => 'has_middle_name',
+);
+
+###########################################################################
+# METHODS
+sub full_name {
+	my ($self) = @_;
+
+	# The full name is the given name and family name
+	return join q{ }, $self->given_name, $self->family_name;
+}
 
 ###########################################################################
 # MAKE MOOSE OBJECT IMMUTABLE
@@ -146,9 +172,76 @@ L</ATTRIBUTES> section).
   # Get an attribute
   my $value = $object->attribute_name;
 
+=head2 affiliations
+
+This is the list of affilitations to USF.
+
+=head2 campus
+
+This is the campus the entry is affiliated with.
+
+=head2 campus_mailstop
+
+This is the mailstop for he entry on campus.
+
+=head2 campus_phone
+
+This is the campus phone number.
+
+=head2 college
+
+This is the college the entry is affiliated with.
+
+=head2 email
+
+This is the e-mail address.
+
 =head2 family_name
 
-This is the family name of the entry.
+This is the family name.
+
+=head2 first_name
+
+This is the first name.
+
+=head2 given_name
+
+This is the given name.
+
+=head2 middle_name
+
+This is the middle name.
+
+=head1 METHODS
+
+=head2 full_name
+
+This will return the full name, which is the given name and the family name
+joined with a space.
+
+=head2 has_campus
+
+This returns a Boolean of if the L</campus> attribute is set.
+
+=head2 has_campus_mailstop
+
+This returns a Boolean of if the L</campus_mailstop> attribute is set.
+
+=head2 has_campus_phone
+
+This returns a Boolean of if the L</campus_phone> attribute is set.
+
+=head2 has_college
+
+This returns a Boolean of if the L</college> attribute is set.
+
+=head2 has_email
+
+This returns a Boolean of if the L</email> attribute is set.
+
+=head2 has_middle_name
+
+This returns a Boolean of if the L</middle_name> attribute is set.
 
 =head1 DEPENDENCIES
 
