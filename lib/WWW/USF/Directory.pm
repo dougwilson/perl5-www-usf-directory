@@ -687,6 +687,29 @@ default is the value of the L</include_students> attribute.
 
 =back
 
+=head1 DIAGNOSTICS
+
+This module will throw L<WWW::USF::Directory::Exception> objects on errors as
+well as any upstream exception objects like L<Net::SAJAX::Exception>. This
+means that all method return values are guaranteed to be correct. Please read
+the relevant exception classes to find out what objects will be thrown.
+
+=over 4
+
+=item * L<WWW::USF::Directory::Exception> for general exceptions not in other
+categories and the base class.
+
+=item * L<WWW::USF::Directory::Exception::MethodArguments> for exceptions
+related to the values of arguments given to methods.
+
+=item * L<WWW::USF::Directory::Exception::TooManyResults> for searches
+returning too many results.
+
+=item * L<WWW::USF::Directory::Exception::UnknownRespose> for responses from
+the server that were not known when the module was written.
+
+=back
+
 =head1 DEPENDENCIES
 
 =over 4
