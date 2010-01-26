@@ -25,6 +25,8 @@ sub setup {
 	# Start in search mode, which is the only mode
 	$self->start_mode('search');
 	$self->run_modes(search => 'search');
+
+	return;
 }
 
 sub search {
@@ -86,11 +88,14 @@ sub _moose_object_as_hash {
 
 1;
 
+## no critic (Modules::ProhibitMultiplePackages)
 package main;
 
 use 5.008;
 use strict;
 use warnings 'all';
+
+our $VERSION = '0.001';
 
 # Start and tun the application
 Directory->new->run();
