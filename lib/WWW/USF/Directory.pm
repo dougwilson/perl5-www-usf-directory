@@ -728,6 +728,8 @@ the server that were not known when the module was written.
 
 =item * L<Net::SAJAX> 0.102
 
+=item * L<Readonly> 1.03
+
 =item * L<namespace::clean> 0.04
 
 =back
