@@ -3,13 +3,12 @@ abstract: "Access to USF's online directory"
 author:
   - 'Douglas Christopher Wilson <doug@somethingdoug.com>'
 build_requires:
-  ExtUtils::MakeMaker: 6.42
   Test::Exception: 0.03
   Test::More: 0
+  Test::Requires: 0.02
 configure_requires:
-  ExtUtils::MakeMaker: 6.42
-distribution_type: module
-generated_by: 'Module::Install version 0.94'
+  Module::Build: 0.36
+generated_by: 'Module::Build version 0.3601'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -23,25 +22,25 @@ no_index:
 provides:
   WWW::USF::Directory:
     file: lib/WWW/USF/Directory.pm
-    version: 0.002
+    version: 0.002_001
   WWW::USF::Directory::Entry:
     file: lib/WWW/USF/Directory/Entry.pm
-    version: 0.002
+    version: 0.002_001
   WWW::USF::Directory::Entry::Affiliation:
     file: lib/WWW/USF/Directory/Entry/Affiliation.pm
-    version: 0.002
+    version: 0.002_001
   WWW::USF::Directory::Exception:
     file: lib/WWW/USF/Directory/Exception.pm
-    version: 0.002
+    version: 0.002_001
   WWW::USF::Directory::Exception::MethodArguments:
     file: lib/WWW/USF/Directory/Exception/MethodArguments.pm
-    version: 0.002
+    version: 0.002_001
   WWW::USF::Directory::Exception::TooManyResults:
     file: lib/WWW/USF/Directory/Exception/TooManyResults.pm
-    version: 0.002
+    version: 0.002_001
   WWW::USF::Directory::Exception::UnknownResponse:
     file: lib/WWW/USF/Directory/Exception/UnknownResponse.pm
-    version: 0.002
+    version: 0.002_001
 requires:
   Carp: 0
   Encode: 0
@@ -59,9 +58,9 @@ requires:
   Readonly: 1.03
   URI: 0
   namespace::clean: 0.04
-  perl: 5.8.1
+  perl: 5.008001
 resources:
   homepage: http://github.com/dougwilson/perl5-www-usf-directory/
   license: http://dev.perl.org/licenses/
   repository: git://github.com/dougwilson/perl5-www-usf-directory.git
-version: 0.002
+version: 0.002_001

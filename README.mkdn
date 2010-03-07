@@ -1,5 +1,5 @@
-WWW-USF-Directory version 0.002
-===============================
+WWW-USF-Directory version 0.002_001
+===================================
 
 INSTALLATION
 ------------

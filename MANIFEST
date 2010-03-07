@@ -1,14 +1,6 @@
+Build.PL
 Changes
 ex/directory_repeater.pl
-inc/Module/Install.pm
-inc/Module/Install/AuthorRequires.pm
-inc/Module/Install/Base.pm
-inc/Module/Install/Can.pm
-inc/Module/Install/Fetch.pm
-inc/Module/Install/Makefile.pm
-inc/Module/Install/Metadata.pm
-inc/Module/Install/Win32.pm
-inc/Module/Install/WriteAll.pm
 lib/WWW/USF/Directory.pm
 lib/WWW/USF/Directory/Entry.pm
 lib/WWW/USF/Directory/Entry/Affiliation.pm
@@ -16,7 +8,7 @@ lib/WWW/USF/Directory/Exception.pm
 lib/WWW/USF/Directory/Exception/MethodArguments.pm
 lib/WWW/USF/Directory/Exception/TooManyResults.pm
 lib/WWW/USF/Directory/Exception/UnknownResponse.pm
-Makefile.PL
+LICENSE
 MANIFEST			This list of files
 META.yml
 README

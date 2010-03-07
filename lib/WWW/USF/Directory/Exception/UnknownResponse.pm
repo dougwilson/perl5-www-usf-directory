@@ -7,7 +7,7 @@ use warnings 'all';
 ###############################################################################
 # METADATA
 our $AUTHORITY = 'cpan:DOUGDUDE';
-our $VERSION   = '0.002';
+our $VERSION   = '0.002_001';
 
 ###############################################################################
 # MOOSE
@@ -53,7 +53,7 @@ response.
 
 =head1 VERSION
 
-Version 0.002
+Version 0.002_001
 
 =head1 SYNOPSIS
 
