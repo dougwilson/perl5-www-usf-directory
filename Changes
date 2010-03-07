@@ -1,5 +1,10 @@
 Revision history for WWW-USF-Directory
 ======================================
 
+0.002 Sun, March 7, 2010 17:20:08 -0500
+  * Added missing dependency information for `Readonly` 1.03
+  * Add an example of a CGI directory repeater in `CGI::Application`
+    in `ex/`
+
 0.001 Sun, January 24, 2010 21:47:12 -0500
   * First release.
