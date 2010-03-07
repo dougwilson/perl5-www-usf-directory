@@ -1,7 +1,7 @@
 Changes
+ex/directory_repeater.pl
 inc/Module/Install.pm
 inc/Module/Install/AuthorRequires.pm
-inc/Module/Install/AuthorTests.pm
 inc/Module/Install/Base.pm
 inc/Module/Install/Can.pm
 inc/Module/Install/Fetch.pm
@@ -23,6 +23,7 @@ README
 t/00-load.t
 xt/clean-namespaces.t
 xt/consistent-version.t
+xt/critic-examples.t
 xt/critic.t
 xt/eol.t
 xt/kwalitee.t

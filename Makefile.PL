@@ -1,7 +1,6 @@
 use inc::Module::Install;
 
 use Module::Install::AuthorRequires 0.02;
-use Module::Install::AuthorTests 0.002;
 
 name     'WWW-USF-Directory';
 all_from 'lib/WWW/USF/Directory.pm';
@@ -27,6 +26,7 @@ requires
 	'MooseX::Types::Moose'      => 0,
 	'MooseX::Types::URI'        => 0,
 	'Net::SAJAX'                => '0.102',
+	'Readonly'                  => '1.03',
 	'URI'                       => 0,
 	'namespace::clean'          => '0.04';
 
@@ -42,9 +42,6 @@ author_requires
 
 # Enable tests to be in multi-level directories
 tests_recursive;
-
-# Author tests in xt/
-recursive_author_tests('xt');
 
 # Write the provided classes in the META
 auto_provides;

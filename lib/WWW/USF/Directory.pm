@@ -7,7 +7,7 @@ use warnings 'all';
 ###########################################################################
 # METADATA
 our $AUTHORITY = 'cpan:DOUGDUDE';
-our $VERSION   = '0.001';
+our $VERSION   = '0.002';
 
 ###########################################################################
 # MOOSE
@@ -533,7 +533,7 @@ WWW::USF::Directory - Access to USF's online directory
 
 =head1 VERSION
 
-Version 0.001
+Version 0.002
 
 =head1 SYNOPSIS
 
@@ -727,6 +727,8 @@ the server that were not known when the module was written.
 =item * L<MooseX::Types::URI>
 
 =item * L<Net::SAJAX> 0.102
+
+=item * L<Readonly> 1.03
 
 =item * L<namespace::clean> 0.04
 
