@@ -335,10 +335,10 @@ sub _clean_node_text {
 	my $text = Encode::encode_utf8($node->textContent);
 
 	# Transform all the horizontal space into ASCII spaces
-	$text =~ s{\h+}{ }gmsx;
+	$text =~ s{\s+}{ }gmsx;
 
 	# Truncate leading and trailing horizontal space
-	$text =~ s{^\h+|\h+$}{}gmsx;
+	$text =~ s{^\s+|\s+$}{}gmsx;
 
 	# Return the text
 	return $text;
@@ -464,7 +464,7 @@ sub _table_row_to_entry {
 
 	if (exists $row{given_name}) {
 		# Split on vertical whitespace
-		my @given_names = split m{\v+}msx, $row{given_name};
+		my @given_names = split m{[\r\n]+}msx, $row{given_name};
 
 		# The first two given names are as follows
 		my ($first_name, $middle_name) = @given_names;
@@ -482,7 +482,7 @@ sub _table_row_to_entry {
 
 	if (exists $row{affiliation}) {
 		# There could be zero or more affiliations seperated by vertical space
-		my @affiliations = split m{\h*\v+\h*}msx, delete $row{affiliation};
+		my @affiliations = split m{\s*[\r\n]+\s*}msx, delete $row{affiliation};
 
 		# Change the affiliation to objects
 		foreach my $affiliation (@affiliations) {
@@ -497,7 +497,7 @@ sub _table_row_to_entry {
 	foreach my $value (values %row) {
 		if (ref $value eq q{}) {
 			# A string, so remove vertical whitespace
-			$value =~ s{\h*\v+\h*}{ }gmsx;
+			$value =~ s{\s*[\r\n]+\s*}{ }gmsx;
 		}
 	}
 
