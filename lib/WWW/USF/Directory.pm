@@ -173,6 +173,7 @@ sub search {
 
 	# Get the advanced search parameters
 	my ($campus, $college, $department) =
+		map { length($_) ? $_ : $args{$_} } # Restore to original if it didn't exist
 		map { $self->_advanced_search_parameter_id($_ => $args{$_}) }
 		qw(campus college department);
 
