@@ -43,7 +43,6 @@ my $build = Module::Build->new(
 		'MooseX::Types::URI'        => 0,
 		'Net::SAJAX'                => '0.102',
 		'Readonly'                  => '1.03',
-		'URI'                       => 0,
 		'namespace::clean'          => '0.04',
 	},
 
