@@ -174,7 +174,8 @@ L</ATTRIBUTES> section).
 
 =head2 affiliations
 
-This is the list of affilitations to USF.
+This is the list of affilitations to USF as
+L<WWW::USF::Directory::Entry::Affiliation> objects.
 
 =head2 campus
 
