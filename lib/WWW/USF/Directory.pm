@@ -328,7 +328,7 @@ sub _clean_node_text {
 	# Find all the line breaks
 	foreach my $br ($node->getElementsByTagName('br')) {
 		# Replace the line breaks with a text node with a new line
-		$br->replaceNode($node->ownerDocument->createTextNode("\n"));
+		$br->replaceNode($node->ownerDocument->createTextNode("{NEWLINE}"));
 	}
 
 	# Get the text of the node (make sure it is native UTF-8)
@@ -339,6 +339,9 @@ sub _clean_node_text {
 
 	# Truncate leading and trailing horizontal space
 	$text =~ s{^\s+|\s+$}{}gmsx;
+
+	# Change the new-lines back
+	$text =~ s{{NEWLINE}}{\n}gmsx; # Because perl < 5.10 cannot do \v and \h
 
 	# Return the text
 	return $text;
