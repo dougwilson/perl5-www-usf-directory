@@ -7,7 +7,7 @@ use warnings 'all';
 ###########################################################################
 # METADATA
 our $AUTHORITY = 'cpan:DOUGDUDE';
-our $VERSION   = '0.002_001';
+our $VERSION   = '0.002_002';
 
 ###########################################################################
 # MOOSE
@@ -328,7 +328,7 @@ sub _clean_node_text {
 	# Find all the line breaks
 	foreach my $br ($node->getElementsByTagName('br')) {
 		# Replace the line breaks with a text node with a new line
-		$br->replaceNode($node->ownerDocument->createTextNode("{NEWLINE}"));
+		$br->replaceNode($node->ownerDocument->createTextNode('{NEWLINE}'));
 	}
 
 	# Get the text of the node (make sure it is native UTF-8)
@@ -536,7 +536,7 @@ WWW::USF::Directory - Access to USF's online directory
 
 =head1 VERSION
 
-Version 0.002_001
+Version 0.002_002
 
 =head1 SYNOPSIS
 

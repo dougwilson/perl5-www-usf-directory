@@ -1,7 +1,13 @@
 Revision history for WWW-USF-Directory
 ======================================
 
-0.002_001 Sun, March 7, 18:21:42 -0500
+0.002_002 Sun, March 21, 2010 20:35:12 -0400
+  * Changed regular expressions to work in Perl 5.8
+  * Allow for searching campus/college/department by any value.
+  * Added new auto complete example.
+  * Added basic tests.
+
+0.002_001 Sun, March 7, 2010 18:21:42 -0500
   * Experimental change to `Module::Build`
 
 0.002 Sun, March 7, 2010 17:20:08 -0500
