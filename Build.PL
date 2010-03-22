@@ -21,9 +21,11 @@ my $build = Module::Build->new(
 
 	# Module that are required for tests in t/
 	build_requires => {
-		'Test::Exception' => '0.03',
-		'Test::More'      => 0,
-		'Test::Requires'  => '0.02',
+		'Test::Exception'           => '0.03',
+		'Test::More'                => '0.94',
+		'Test::Override::UserAgent' => 0,
+		'Test::Requires'            => '0.02',
+		'URI::QueryParam'           => 0,
 	},
 
 	# Module that are required

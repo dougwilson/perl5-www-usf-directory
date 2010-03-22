@@ -4,8 +4,10 @@ author:
   - 'Douglas Christopher Wilson <doug@somethingdoug.com>'
 build_requires:
   Test::Exception: 0.03
-  Test::More: 0
+  Test::More: 0.94
+  Test::Override::UserAgent: 0
   Test::Requires: 0.02
+  URI::QueryParam: 0
 configure_requires:
   Module::Build: 0.36
 generated_by: 'Module::Build version 0.3601'

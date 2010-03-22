@@ -1,6 +1,7 @@
 Build.PL
 Changes
 ex/directory_repeater.pl
+ex/email_autocomplete.pl
 lib/WWW/USF/Directory.pm
 lib/WWW/USF/Directory/Entry.pm
 lib/WWW/USF/Directory/Entry/Affiliation.pm
@@ -13,6 +14,8 @@ MANIFEST			This list of files
 META.yml
 README
 t/00-load.t
+t/basic.t
+t/lib/MyUA.pm
 xt/clean-namespaces.t
 xt/consistent-version.t
 xt/critic-examples.t
