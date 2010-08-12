@@ -34,7 +34,7 @@ has 'affiliations' => (
 	isa => 'ArrayRef[WWW::USF::Directory::Entry::Affiliation]',
 
 	default       => sub { [] },
-	documentation => q{This is the list of affilitations to USF},
+	documentation => q{This is the list of affiliations to USF},
 );
 has 'campus' => (
 	is  => 'ro',
@@ -174,7 +174,7 @@ L</ATTRIBUTES> section).
 
 =head2 affiliations
 
-This is the list of affilitations to USF as
+This is the list of affiliations to USF as
 L<WWW::USF::Directory::Entry::Affiliation> objects.
 
 =head2 campus

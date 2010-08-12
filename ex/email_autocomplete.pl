@@ -81,7 +81,7 @@ __END__
 
 =head1 NAME
 
-email_autocomplete.pl - Example USF directory e-mail autocompletion.
+email_autocomplete.pl - Example USF directory e-mail auto-completion.
 
 =head1 VERSION
 
@@ -103,7 +103,7 @@ query string and return a JSON-encoded response with the results (or error).
 
 =head1 OPTIONS
 
-This takes name-value pairs seperated by an equal sign C<=> and maps that
+This takes name-value pairs separated by an equal sign C<=> and maps that
 to query string name-value pairs.
 
 =head1 DIAGNOSTICS
@@ -142,7 +142,7 @@ Douglas Christopher Wilson, C<< <doug at somethingdoug.com> >>
 
 =head1 BUGS AND LIMITATIONS
 
-There are no indended limitations, and so if you find a feature in the USF
+There are no intended limitations, and so if you find a feature in the USF
 directory that is not implemented here, please let me know.
 
 Please report any bugs or feature requests to
