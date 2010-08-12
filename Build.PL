@@ -32,7 +32,6 @@ my $build = Module::Build->new(
 	requires => {
 		'perl'                      => '5.008001',
 		'Carp'                      => 0,
-		'Encode'                    => 0,
 		'English'                   => 0,
 		'HTML::HTML5::Parser'       => '0.03',
 		'List::MoreUtils'           => '0.07',

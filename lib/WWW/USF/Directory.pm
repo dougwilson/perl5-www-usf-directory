@@ -25,7 +25,6 @@ use MooseX::Types::URI qw(
 
 ###########################################################################
 # MODULE IMPORTS
-use Encode;
 use HTML::HTML5::Parser 0.03;
 use List::MoreUtils 0.07;
 use Net::SAJAX 0.102;
@@ -331,8 +330,8 @@ sub _clean_node_text {
 		$br->replaceNode($node->ownerDocument->createTextNode('{NEWLINE}'));
 	}
 
-	# Get the text of the node (make sure it is native UTF-8)
-	my $text = Encode::encode_utf8($node->textContent);
+	# Get the text of the node
+	my $text = $node->textContent;
 
 	# Transform all the horizontal space into ASCII spaces
 	$text =~ s{\s+}{ }gmsx;
@@ -513,6 +512,14 @@ sub _table_row_to_entry {
 
 		# Reformat the phone number
 		$row{campus_phone} =~ s{\A (\d{3}) (\d{3}) (\d{4}) \z}{+1 $1 $2 $3}msx;
+	}
+
+	if (exists $row{email}) {
+		# USF is not too bright at preventing unwanted text from coming through
+		if (List::MoreUtils::any { $_ eq $row{email} } qw[null undefined]) {
+			# This is an invalid address
+			delete $row{email};
+		}
 	}
 
 	# Make a new entry for the result
@@ -716,8 +723,6 @@ the server that were not known when the module was written.
 =head1 DEPENDENCIES
 
 =over 4
-
-=item * L<Encode>
 
 =item * L<HTML::HTML5::Parser> 0.03
 

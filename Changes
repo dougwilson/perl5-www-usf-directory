@@ -1,6 +1,11 @@
 Revision history for WWW-USF-Directory
 ======================================
 
+TO BE RELEASED
+  * Remove dependency on `Encode` as page is already UTF-8.
+  * Work around directory results having an e-mail address of "null"
+    or "undefined" and list entry as having no e-mail address.
+
 0.002_002 Sun, March 21, 2010 20:35:12 -0400
   * Changed regular expressions to work in Perl 5.8
   * Allow for searching campus/college/department by any value.

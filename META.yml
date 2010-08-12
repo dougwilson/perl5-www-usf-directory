@@ -45,7 +45,6 @@ provides:
     version: 0.002_002
 requires:
   Carp: 0
-  Encode: 0
   English: 0
   HTML::HTML5::Parser: 0.03
   List::MoreUtils: 0.07
