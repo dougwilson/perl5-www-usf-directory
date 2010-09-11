@@ -2,7 +2,9 @@ Revision history for WWW-USF-Directory
 ======================================
 
 TO BE RELEASED
-  * Remove dependency on `Encode` as page is already UTF-8.
+  * Remove dependency on `Encode` and bump version of
+    `HTML::HTML5::Parser` required to 0.101 since the UTF-8 bug was
+    fixed.
   * Work around directory results having an e-mail address of "null"
     or "undefined" and list entry as having no e-mail address.
 

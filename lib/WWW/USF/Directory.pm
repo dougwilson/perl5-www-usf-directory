@@ -25,7 +25,7 @@ use MooseX::Types::URI qw(
 
 ###########################################################################
 # MODULE IMPORTS
-use HTML::HTML5::Parser 0.03;
+use HTML::HTML5::Parser 0.101;
 use List::MoreUtils 0.07;
 use Net::SAJAX 0.102;
 use Readonly 1.03;
@@ -724,7 +724,7 @@ the server that were not known when the module was written.
 
 =over 4
 
-=item * L<HTML::HTML5::Parser> 0.03
+=item * L<HTML::HTML5::Parser> 0.101
 
 =item * L<List::MoreUtils> 0.07
 
