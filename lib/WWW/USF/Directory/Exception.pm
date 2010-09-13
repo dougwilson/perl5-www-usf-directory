@@ -7,7 +7,7 @@ use warnings 'all';
 ###########################################################################
 # METADATA
 our $AUTHORITY = 'cpan:DOUGDUDE';
-our $VERSION   = '0.002_002';
+our $VERSION   = '0.003';
 
 ###########################################################################
 # MOOSE
@@ -107,7 +107,7 @@ WWW::USF::Directory::Exception - Basic exception object for WWW::USF::Directory
 
 =head1 VERSION
 
-Version 0.002_002
+Version 0.003
 
 =head1 SYNOPSIS
 
