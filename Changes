@@ -1,6 +1,22 @@
 Revision history for WWW-USF-Directory
 ======================================
 
+0.003 Mon, September 13, 2010 19:33:41 -0400
+  * Remove dependency on `Encode` and bump version of
+    `HTML::HTML5::Parser` required to 0.101 since the UTF-8 bug was
+    fixed.
+  * Work around directory results having an e-mail address of "null"
+    or "undefined" and list entry as having no e-mail address.
+
+0.002_002 Sun, March 21, 2010 20:35:12 -0400
+  * Changed regular expressions to work in Perl 5.8
+  * Allow for searching campus/college/department by any value.
+  * Added new auto complete example.
+  * Added basic tests.
+
+0.002_001 Sun, March 7, 2010 18:21:42 -0500
+  * Experimental change to `Module::Build`
+
 0.002 Sun, March 7, 2010 17:20:08 -0500
   * Added missing dependency information for `Readonly` 1.03
   * Add an example of a CGI directory repeater in `CGI::Application`

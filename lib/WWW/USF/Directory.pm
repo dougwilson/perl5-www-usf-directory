@@ -7,7 +7,7 @@ use warnings 'all';
 ###########################################################################
 # METADATA
 our $AUTHORITY = 'cpan:DOUGDUDE';
-our $VERSION   = '0.002';
+our $VERSION   = '0.003';
 
 ###########################################################################
 # MOOSE
@@ -25,12 +25,10 @@ use MooseX::Types::URI qw(
 
 ###########################################################################
 # MODULE IMPORTS
-use Encode;
-use HTML::HTML5::Parser 0.03;
+use HTML::HTML5::Parser 0.101;
 use List::MoreUtils 0.07;
 use Net::SAJAX 0.102;
 use Readonly 1.03;
-use URI;
 use WWW::USF::Directory::Entry;
 use WWW::USF::Directory::Entry::Affiliation;
 use WWW::USF::Directory::Exception;
@@ -173,6 +171,7 @@ sub search {
 
 	# Get the advanced search parameters
 	my ($campus, $college, $department) =
+		map { length($_) ? $_ : $args{$_} } # Restore to original if it didn't exist
 		map { $self->_advanced_search_parameter_id($_ => $args{$_}) }
 		qw(campus college department);
 
@@ -313,7 +312,7 @@ sub _build_sajax {
 
 	# This will return a SAJAX object with default options
 	return Net::SAJAX->new(
-		url => URI->new($self->directory_url->clone),
+		url => $self->directory_url->clone,
 	);
 }
 
@@ -328,17 +327,20 @@ sub _clean_node_text {
 	# Find all the line breaks
 	foreach my $br ($node->getElementsByTagName('br')) {
 		# Replace the line breaks with a text node with a new line
-		$br->replaceNode($node->ownerDocument->createTextNode("\n"));
+		$br->replaceNode($node->ownerDocument->createTextNode('{NEWLINE}'));
 	}
 
-	# Get the text of the node (make sure it is native UTF-8)
-	my $text = Encode::encode_utf8($node->textContent);
+	# Get the text of the node
+	my $text = $node->textContent;
 
 	# Transform all the horizontal space into ASCII spaces
-	$text =~ s{\h+}{ }gmsx;
+	$text =~ s{\s+}{ }gmsx;
 
 	# Truncate leading and trailing horizontal space
-	$text =~ s{^\h+|\h+$}{}gmsx;
+	$text =~ s{^\s+|\s+$}{}gmsx;
+
+	# Change the new-lines back
+	$text =~ s{{NEWLINE}}{\n}gmsx; # Because perl < 5.10 cannot do \v and \h
 
 	# Return the text
 	return $text;
@@ -464,7 +466,7 @@ sub _table_row_to_entry {
 
 	if (exists $row{given_name}) {
 		# Split on vertical whitespace
-		my @given_names = split m{\v+}msx, $row{given_name};
+		my @given_names = split m{[\r\n]+}msx, $row{given_name};
 
 		# The first two given names are as follows
 		my ($first_name, $middle_name) = @given_names;
@@ -482,7 +484,7 @@ sub _table_row_to_entry {
 
 	if (exists $row{affiliation}) {
 		# There could be zero or more affiliations seperated by vertical space
-		my @affiliations = split m{\h*\v+\h*}msx, delete $row{affiliation};
+		my @affiliations = split m{\s*[\r\n]+\s*}msx, delete $row{affiliation};
 
 		# Change the affiliation to objects
 		foreach my $affiliation (@affiliations) {
@@ -497,7 +499,7 @@ sub _table_row_to_entry {
 	foreach my $value (values %row) {
 		if (ref $value eq q{}) {
 			# A string, so remove vertical whitespace
-			$value =~ s{\h*\v+\h*}{ }gmsx;
+			$value =~ s{\s*[\r\n]+\s*}{ }gmsx;
 		}
 	}
 
@@ -510,6 +512,14 @@ sub _table_row_to_entry {
 
 		# Reformat the phone number
 		$row{campus_phone} =~ s{\A (\d{3}) (\d{3}) (\d{4}) \z}{+1 $1 $2 $3}msx;
+	}
+
+	if (exists $row{email}) {
+		# USF is not too bright at preventing unwanted text from coming through
+		if (List::MoreUtils::any { $_ eq $row{email} } qw[null undefined]) {
+			# This is an invalid address
+			delete $row{email};
+		}
 	}
 
 	# Make a new entry for the result
@@ -533,7 +543,7 @@ WWW::USF::Directory - Access to USF's online directory
 
 =head1 VERSION
 
-Version 0.002
+Version 0.003
 
 =head1 SYNOPSIS
 
@@ -714,9 +724,7 @@ the server that were not known when the module was written.
 
 =over 4
 
-=item * L<Encode>
-
-=item * L<HTML::HTML5::Parser> 0.03
+=item * L<HTML::HTML5::Parser> 0.101
 
 =item * L<List::MoreUtils> 0.07
 
@@ -740,7 +748,7 @@ Douglas Christopher Wilson, C<< <doug at somethingdoug.com> >>
 
 =head1 BUGS AND LIMITATIONS
 
-There are no indended limitations, and so if you find a feature in the USF
+There are no intended limitations, and so if you find a feature in the USF
 directory that is not implemented here, please let me know.
 
 Please report any bugs or feature requests to

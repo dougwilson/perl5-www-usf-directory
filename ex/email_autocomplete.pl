@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 
-package Directory;
+package # No CPAN indexing
+	Directory;
 
 use 5.008;
 use strict;
@@ -41,49 +42,25 @@ sub search {
 	try {
 		# Search the directory
 		@results = $self->{directory}->search(
-			name => scalar $self->query->param('name'),
+			name => scalar $self->query->param('q'),
 		);
 
-		foreach my $result (@results) {
-			# Change the ::Directory::Entry object into a hash of its attributes
-			$result = _moose_object_as_hash($result);
+		# Remove all results without e-mail addresses
+		@results = grep { $_->has_email } @results;
 
-			if (exists $result->{affiliations}) {
-				$result->{affiliations} = [map {
-					_moose_object_as_hash($_);
-				} @{$result->{affiliations}}];
-			}
-		}
+		# Change results to be the name and e-mail address
+		@results = map { +{ $_->full_name => $_->email } } @results;
 
 		# Return the JSON-encoded results to print
-		$response = JSON->new->encode({
-			results => \@results,
-		});
+		$response = JSON->new->encode(\@results);
 	}
 	catch {
-		# Get the error
-		my $error = $_;
-
-		# Return a JSON with the error
-		$response = JSON->new->encode({
-			error   => "$error",
-			results => [],
-		});
+		# Return an empty JSON list
+		$response = JSON->new->encode([]);
 	};
 
 	# Return the response
 	return $response;
-}
-
-sub _moose_object_as_hash {
-	my ($object) = @_;
-
-	# Convert a Moose object to a HASH with the attribute_name => attribute_value
-	my $hash = { map {
-		($_->name, $_->get_value($object))
-	} $object->meta->get_all_attributes };
-
-	return $hash;
 }
 
 1;
@@ -104,7 +81,7 @@ __END__
 
 =head1 NAME
 
-directory_repeater.pl - Example USF directory repeater.
+email_autocomplete.pl - Example USF directory e-mail auto-completion.
 
 =head1 VERSION
 
@@ -112,12 +89,12 @@ Version 0.001
 
 =head1 USAGE
 
-  directory_repeater.pl name="<name to search for>"
+  email_autocomplete.pl q="<thing to complete>"
 
-      Running the file directly as a script, you can specify name=value
+      Running the file directly as a script, you can specify q=value
       parameter and CGI output will be given with the search result.
       The ideal use is to place this in your cgi-bin and access it by
-      /cgi-bin/directory_repeater.pl?name=name%20to%20search
+      /cgi-bin/email_autocomplete.pl?q=name%20to%20complete
 
 =head1 DESCRIPTION
 

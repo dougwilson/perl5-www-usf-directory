@@ -7,7 +7,7 @@ use warnings 'all';
 ###########################################################################
 # METADATA
 our $AUTHORITY = 'cpan:DOUGDUDE';
-our $VERSION   = '0.002';
+our $VERSION   = '0.003';
 
 ###########################################################################
 # MOOSE
@@ -34,7 +34,7 @@ has 'affiliations' => (
 	isa => 'ArrayRef[WWW::USF::Directory::Entry::Affiliation]',
 
 	default       => sub { [] },
-	documentation => q{This is the list of affilitations to USF},
+	documentation => q{This is the list of affiliations to USF},
 );
 has 'campus' => (
 	is  => 'ro',
@@ -129,7 +129,7 @@ WWW::USF::Directory::Entry - An entry in the USF online directory
 
 =head1 VERSION
 
-Version 0.002
+Version 0.003
 
 =head1 SYNOPSIS
 
@@ -174,7 +174,8 @@ L</ATTRIBUTES> section).
 
 =head2 affiliations
 
-This is the list of affilitations to USF.
+This is the list of affiliations to USF as
+L<WWW::USF::Directory::Entry::Affiliation> objects.
 
 =head2 campus
 
