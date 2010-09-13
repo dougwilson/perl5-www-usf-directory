@@ -1,7 +1,7 @@
 Revision history for WWW-USF-Directory
 ======================================
 
-TO BE RELEASED
+0.003 Mon, September 13, 2010 19:33:41 -0400
   * Remove dependency on `Encode` and bump version of
     `HTML::HTML5::Parser` required to 0.101 since the UTF-8 bug was
     fixed.
