@@ -614,8 +614,8 @@ L</ATTRIBUTES> section).
 =head2 directory_url
 
 This is the URL that commands are sent to in order to interact with the online
-directory. This can be a L<URI> object or a string. This will always return a
-L<URI> object.
+directory. This can be a L<URI|URI> object or a string. This will always
+return a L<URI|URI> object.
 
 =head2 include_faculty
 
@@ -635,8 +635,8 @@ default is false.
 =head2 user_agent
 
 This is the user agent that will be used to make the HTTP requests. This
-internally maps to the user agent in the L<Net::SAJAX> object and the default
-is the default for L<Net::SAJAX>.
+internally maps to the user agent in the L<Net::SAJAX|Net::SAJAX> object
+and the default is the default for L<Net::SAJAX|Net::SAJAX>.
 
 =head1 METHODS
 
@@ -655,8 +655,9 @@ This will return a list of strings that are the names of the departments.
 =head2 search
 
 This will search the online directory and return an array of
-L<WWW::USF::Directory::Entry> objects as the results of the search. This method
-takes a HASH as the argument with the following keys:
+L<WWW::USF::Directory::Entry|WWW::USF::Directory::Entry> objects as the
+results of the search. This method takes a HASH as the argument with the
+following keys:
 
 =over 4
 
@@ -699,24 +700,26 @@ default is the value of the L</include_students> attribute.
 
 =head1 DIAGNOSTICS
 
-This module will throw L<WWW::USF::Directory::Exception> objects on errors as
-well as any upstream exception objects like L<Net::SAJAX::Exception>. This
-means that all method return values are guaranteed to be correct. Please read
-the relevant exception classes to find out what objects will be thrown.
+This module will throw
+L<WWW::USF::Directory::Exception|WWW::USF::Directory::Exception> objects on
+errors as well as any upstream exception objects like
+L<Net::SAJAX::Exception|Net::SAJAX::Exception>. This means that all method
+return values are guaranteed to be correct. Please read the relevant
+exception classes to find out what objects will be thrown.
 
 =over 4
 
-=item * L<WWW::USF::Directory::Exception> for general exceptions not in other
-categories and the base class.
+=item * L<WWW::USF::Directory::Exception|WWW::USF::Directory::Exception>
+for general exceptions not in other categories and the base class.
 
-=item * L<WWW::USF::Directory::Exception::MethodArguments> for exceptions
-related to the values of arguments given to methods.
+=item * L<WWW::USF::Directory::Exception::MethodArguments|WWW::USF::Directory::Exception::MethodArguments>
+for exceptions related to the values of arguments given to methods.
 
-=item * L<WWW::USF::Directory::Exception::TooManyResults> for searches
-returning too many results.
+=item * L<WWW::USF::Directory::Exception::TooManyResults|WWW::USF::Directory::Exception::TooManyResults>
+for searches returning too many results.
 
-=item * L<WWW::USF::Directory::Exception::UnknownRespose> for responses from
-the server that were not known when the module was written.
+=item * L<WWW::USF::Directory::Exception::UnknownRespose|WWW::USF::Directory::Exception::UnknownRespose>
+for responses from the server that were not known when the module was written.
 
 =back
 
@@ -726,19 +729,19 @@ the server that were not known when the module was written.
 
 =item * L<Const::Fast|Const::Fast> 0.004
 
-=item * L<HTML::HTML5::Parser> 0.101
+=item * L<HTML::HTML5::Parser|HTML::HTML5::Parser> 0.101
 
-=item * L<List::MoreUtils> 0.07
+=item * L<List::MoreUtils|List::MoreUtils> 0.07
 
-=item * L<Moose> 0.89
+=item * L<Moose|Moose> 0.89
 
-=item * L<MooseX::StrictConstructor> 0.08
+=item * L<MooseX::StrictConstructor|MooseX::StrictConstructor> 0.08
 
-=item * L<MooseX::Types::URI>
+=item * L<MooseX::Types::URI|MooseX::Types::URI>
 
-=item * L<Net::SAJAX> 0.102
+=item * L<Net::SAJAX|Net::SAJAX> 0.102
 
-=item * L<namespace::clean> 0.04
+=item * L<namespace::clean|namespace::clean> 0.04
 
 =back
 

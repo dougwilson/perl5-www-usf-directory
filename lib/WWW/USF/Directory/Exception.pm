@@ -120,7 +120,8 @@ Version 0.003
 
 =head1 DESCRIPTION
 
-This is a basic exception class for the L<WWW::USF::Directory> library.
+This is a basic exception class for the
+L<WWW::USF::Directory|WWW::USF::Directory> library.
 
 =head1 ATTRIBUTES
 
@@ -162,15 +163,15 @@ class.
 
 =over
 
-=item * L<Carp>
+=item * L<Carp|Carp>
 
-=item * L<English>
+=item * L<English|English>
 
-=item * L<Moose> 0.89
+=item * L<Moose|Moose> 0.89
 
-=item * L<MooseX::StrictConstructor> 0.08
+=item * L<MooseX::StrictConstructor|MooseX::StrictConstructor> 0.08
 
-=item * L<namespace::clean> 0.04
+=item * L<namespace::clean|namespace::clean> 0.04
 
 =back
 
