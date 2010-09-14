@@ -6,7 +6,7 @@ use 5.008;
 use strict;
 use warnings 'all';
 
-use base 'CGI::Application';
+use parent 'CGI::Application';
 
 use JSON 2.00; # The API was changed
 use Try::Tiny;
@@ -155,7 +155,7 @@ There are no configuration options for this script.
 
 =item * L<WWW::USF::Directory|WWW::USF::Directory>
 
-=item * L<base|base>
+=item * L<parent|parent>
 
 =back
 
