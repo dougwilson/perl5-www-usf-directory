@@ -32,6 +32,7 @@ my $build = Module::Build->new(
 	requires => {
 		'perl'                      => '5.008001',
 		'Carp'                      => 0,
+		'Const::Fast'               => '0.004',
 		'English'                   => 0,
 		'HTML::HTML5::Parser'       => '0.101',
 		'List::MoreUtils'           => '0.07',
@@ -43,7 +44,6 @@ my $build = Module::Build->new(
 		'MooseX::Types::Moose'      => 0,
 		'MooseX::Types::URI'        => 0,
 		'Net::SAJAX'                => '0.102',
-		'Readonly'                  => '1.03',
 		'namespace::clean'          => '0.04',
 	},
 

@@ -28,16 +28,16 @@ use MooseX::Types::URI qw(
 use HTML::HTML5::Parser 0.101;
 use List::MoreUtils 0.07;
 use Net::SAJAX 0.102;
-use Readonly 1.03;
+use Const::Fast 0.004 qw(const);
 use WWW::USF::Directory::Entry;
 use WWW::USF::Directory::Entry::Affiliation;
 use WWW::USF::Directory::Exception;
 
 ###########################################################################
 # PRIVATE CONSTANTS
-Readonly my $FACULTY_BIT  => 1;
-Readonly my $STAFF_BIT    => 2;
-Readonly my $STUDENTS_BIT => 4;
+const my $FACULTY_BIT  => 1;
+const my $STAFF_BIT    => 2;
+const my $STUDENTS_BIT => 4;
 
 ###########################################################################
 # ALL IMPORTS BEFORE THIS WILL BE ERASED
@@ -724,6 +724,8 @@ the server that were not known when the module was written.
 
 =over 4
 
+=item * L<Const::Fast|Const::Fast> 0.004
+
 =item * L<HTML::HTML5::Parser> 0.101
 
 =item * L<List::MoreUtils> 0.07
@@ -735,8 +737,6 @@ the server that were not known when the module was written.
 =item * L<MooseX::Types::URI>
 
 =item * L<Net::SAJAX> 0.102
-
-=item * L<Readonly> 1.03
 
 =item * L<namespace::clean> 0.04
 
