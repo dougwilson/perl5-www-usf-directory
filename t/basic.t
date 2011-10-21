@@ -1,4 +1,4 @@
-#!perl -T
+#!/usr/bin/env perl
 
 use 5.008;
 use lib 't/lib';
