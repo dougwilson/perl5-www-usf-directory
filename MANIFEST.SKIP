@@ -9,4 +9,4 @@
 \Acover_db/ # The Devel::Cover database
 \A_build/
 \ABuild\z
-^MYMETA.yml$
+^MYMETA.(?:json|yml)$
