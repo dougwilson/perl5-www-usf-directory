@@ -3,6 +3,7 @@ Revision history for perl distribution WWW-USF-Directory
 TO BE RELEASED
  [OTHER]
  - Change from Readonly to Cost::Fast.
+ - Use Class::Load for loading exception classes dynamically.
 
 0.003 2010-09-13
  [ENHANCEMENTS]

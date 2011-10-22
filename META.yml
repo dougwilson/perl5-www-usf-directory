@@ -9,8 +9,9 @@ build_requires:
   Test::Requires: 0.02
   URI::QueryParam: 0
 configure_requires:
-  Module::Build: 0.36
-generated_by: 'Module::Build version 0.3607'
+  Module::Build: 0.38
+dynamic_config: 1
+generated_by: 'Module::Build version 0.38, CPAN::Meta::Converter version 2.112150'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -45,8 +46,8 @@ provides:
     version: 0.003
 requires:
   Carp: 0
+  Class::Load: 0
   Const::Fast: 0.004
-  English: 0
   HTML::HTML5::Parser: 0.101
   List::MoreUtils: 0.07
   Moose: 0.89
