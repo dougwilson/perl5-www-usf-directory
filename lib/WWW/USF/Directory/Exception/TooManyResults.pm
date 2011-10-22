@@ -7,7 +7,7 @@ use warnings 'all';
 ###########################################################################
 # METADATA
 our $AUTHORITY = 'cpan:DOUGDUDE';
-our $VERSION   = '0.003';
+our $VERSION   = '0.003001';
 
 ###########################################################################
 # MOOSE
@@ -53,7 +53,7 @@ results.
 
 =head1 VERSION
 
-Version 0.003
+This documentation refers to version 0.003001
 
 =head1 SYNOPSIS
 
@@ -68,12 +68,13 @@ Version 0.003
 
 This is an exception class for exceptions where the directory will not return
 any results because the search was not specific enough in the
-L<WWW::USF::Directory> library.
+L<WWW::USF::Directory|WWW::USF::Directory> library.
 
 =head1 INHERITANCE
 
-This class inherits from the base class of L<WWW::USF::Directory::Exception> and
-all attributes and methods in that class are also in this class.
+This class inherits from the base class of
+L<WWW::USF::Directory::Exception|WWW::USF::Directory::Exception> and all
+attributes and methods in that class are also in this class.
 
 =head1 ATTRIBUTES
 
@@ -89,13 +90,13 @@ This class does not contain any methods.
 
 =over
 
-=item * L<Moose> 0.89
+=item * L<Moose|Moose> 0.89
 
-=item * L<MooseX::StrictConstructor> 0.08
+=item * L<MooseX::StrictConstructor|MooseX::StrictConstructor> 0.08
 
-=item * L<WWW::USF::Directory::Exception>
+=item * L<WWW::USF::Directory::Exception|WWW::USF::Directory::Exception>
 
-=item * L<namespace::clean> 0.04
+=item * L<namespace::clean|namespace::clean> 0.04
 
 =back
 

@@ -1,4 +1,4 @@
-#!perl
+#!/usr/bin/perl
 # Test::CleanNamespaces cannot run in taint mode for whatever reason
 
 use 5.008;

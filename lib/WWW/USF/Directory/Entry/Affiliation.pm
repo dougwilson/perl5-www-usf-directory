@@ -7,7 +7,7 @@ use warnings 'all';
 ###########################################################################
 # METADATA
 our $AUTHORITY = 'cpan:DOUGDUDE';
-our $VERSION   = '0.003';
+our $VERSION   = '0.003001';
 
 ###########################################################################
 # MOOSE
@@ -102,7 +102,7 @@ an entry
 
 =head1 VERSION
 
-Version 0.003
+This documentation refers to version 0.003001
 
 =head1 SYNOPSIS
 
@@ -115,7 +115,7 @@ Version 0.003
 =head1 DESCRIPTION
 
 Information about an affiliation of an entry. These objects are typically
-created by L<WWW::USF::Directory>.
+created by L<WWW::USF::Directory|WWW::USF::Directory>.
 
 =head1 CONSTRUCTOR
 
@@ -173,11 +173,11 @@ used in a string context. This returns "role: department" or "role".
 
 =over
 
-=item * L<Moose> 0.89
+=item * L<Moose|Moose> 0.89
 
-=item * L<MooseX::StrictConstructor> 0.08
+=item * L<MooseX::StrictConstructor|MooseX::StrictConstructor> 0.08
 
-=item * L<namespace::clean> 0.04
+=item * L<namespace::clean|namespace::clean> 0.04
 
 =back
 

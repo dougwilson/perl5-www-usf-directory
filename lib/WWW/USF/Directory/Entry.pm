@@ -7,7 +7,7 @@ use warnings 'all';
 ###########################################################################
 # METADATA
 our $AUTHORITY = 'cpan:DOUGDUDE';
-our $VERSION   = '0.003';
+our $VERSION   = '0.003001';
 
 ###########################################################################
 # MOOSE
@@ -129,7 +129,7 @@ WWW::USF::Directory::Entry - An entry in the USF online directory
 
 =head1 VERSION
 
-Version 0.003
+This documentation refers to version 0.003001
 
 =head1 SYNOPSIS
 
@@ -139,7 +139,7 @@ Version 0.003
 =head1 DESCRIPTION
 
 This represents an entry in the USF online directory. These objects are
-typically created by L<WWW::USF::Directory>.
+typically created by L<WWW::USF::Directory|WWW::USF::Directory>.
 
 =head1 CONSTRUCTOR
 
@@ -175,7 +175,8 @@ L</ATTRIBUTES> section).
 =head2 affiliations
 
 This is the list of affiliations to USF as
-L<WWW::USF::Directory::Entry::Affiliation> objects.
+L<WWW::USF::Directory::Entry::Affiliation|WWW::USF::Directory::Entry::Affiliation>
+objects.
 
 =head2 campus
 
@@ -248,13 +249,13 @@ This returns a Boolean of if the L</middle_name> attribute is set.
 
 =over 4
 
-=item * L<Moose> 0.89
+=item * L<Moose|Moose> 0.89
 
-=item * L<MooseX::StrictConstructor> 0.08
+=item * L<MooseX::StrictConstructor|MooseX::StrictConstructor> 0.08
 
-=item * L<MooseX::Types::Moose>
+=item * L<MooseX::Types::Moose|MooseX::Types::Moose>
 
-=item * L<namespace::clean> 0.04
+=item * L<namespace::clean|namespace::clean> 0.04
 
 =back
 

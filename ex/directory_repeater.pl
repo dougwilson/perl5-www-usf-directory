@@ -6,7 +6,7 @@ use 5.008;
 use strict;
 use warnings 'all';
 
-use base 'CGI::Application';
+use parent 'CGI::Application';
 
 use JSON 2.00; # The API was changed
 use Try::Tiny;
@@ -131,8 +131,8 @@ to query string name-value pairs.
 
 =head1 DIAGNOSTICS
 
-This script utilizes L<CGI::Application> and thus all diagnostics are up
-to that module.
+This script utilizes L<CGI::Application|CGI::Application> and thus all
+diagnostics are up to that module.
 
 =head1 EXIT STATUS
 
@@ -147,15 +147,15 @@ There are no configuration options for this script.
 
 =over 4
 
-=item * L<CGI::Application>
+=item * L<CGI::Application|CGI::Application>
 
-=item * L<JSON> 2.00
+=item * L<JSON|JSON> 2.00
 
-=item * L<Try::Tiny>
+=item * L<Try::Tiny|Try::Tiny>
 
-=item * L<WWW::USF::Directory>
+=item * L<WWW::USF::Directory|WWW::USF::Directory>
 
-=item * L<base>
+=item * L<parent|parent>
 
 =back
 

@@ -1,6 +1,5 @@
-#!perl
-# This uses default File::Find, so chdir won't
-# work in taint mode
+#!/usr/bin/perl
+# This uses default File::Find, so chdir won't work in taint mode
 
 use 5.008;
 use strict;

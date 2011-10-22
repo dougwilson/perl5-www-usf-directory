@@ -1,4 +1,4 @@
-#!perl -T
+#!/usr/bin/perl -T
 
 use 5.008;
 use lib 't/lib';
@@ -6,7 +6,7 @@ use strict;
 use warnings 'all';
 
 use Test::More 0.94 tests => 5;
-use Test::Exception 0.03;
+use Test::Fatal;
 
 use MyUA;
 use WWW::USF::Directory;
@@ -17,7 +17,7 @@ my $scope = MyUA->configuration->install_in_scope;
 subtest 'Constructor' => sub {
 	plan tests => 1;
 
-	lives_ok { WWW::USF::Directory->new; } ' Empty constructor';
+	is(exception { WWW::USF::Directory->new }, undef, ' Empty constructor');
 };
 
 subtest 'Listing' => sub {
@@ -37,11 +37,11 @@ subtest 'Search Exceptions' => sub {
 	# Create directory object
 	my $directory = WWW::USF::Directory->new;
 
-	throws_ok { $directory->search(name => $MyUA::TooManyResults_Name) }
-		'WWW::USF::Directory::Exception::TooManyResults', 'Too many results exception';
+	isa_ok(exception { $directory->search(name => $MyUA::TooManyResults_Name) },
+		'WWW::USF::Directory::Exception::TooManyResults', 'Too many results exception');
 
-	throws_ok { $directory->search(name => $MyUA::UnknownResponse_Name) }
-		'WWW::USF::Directory::Exception::UnknownResponse', 'Unknown response';
+	isa_ok(exception { $directory->search(name => $MyUA::UnknownResponse_Name) },
+		'WWW::USF::Directory::Exception::UnknownResponse', 'Unknown response');
 };
 
 subtest 'Search no results' => sub {
