@@ -58,31 +58,31 @@
    "provides" : {
       "WWW::USF::Directory" : {
          "file" : "lib/WWW/USF/Directory.pm",
-         "version" : "0.003"
+         "version" : "0.003001"
       },
       "WWW::USF::Directory::Entry" : {
          "file" : "lib/WWW/USF/Directory/Entry.pm",
-         "version" : "0.003"
+         "version" : "0.003001"
       },
       "WWW::USF::Directory::Entry::Affiliation" : {
          "file" : "lib/WWW/USF/Directory/Entry/Affiliation.pm",
-         "version" : "0.003"
+         "version" : "0.003001"
       },
       "WWW::USF::Directory::Exception" : {
          "file" : "lib/WWW/USF/Directory/Exception.pm",
-         "version" : "0.003"
+         "version" : "0.003001"
       },
       "WWW::USF::Directory::Exception::MethodArguments" : {
          "file" : "lib/WWW/USF/Directory/Exception/MethodArguments.pm",
-         "version" : "0.003"
+         "version" : "0.003001"
       },
       "WWW::USF::Directory::Exception::TooManyResults" : {
          "file" : "lib/WWW/USF/Directory/Exception/TooManyResults.pm",
-         "version" : "0.003"
+         "version" : "0.003001"
       },
       "WWW::USF::Directory::Exception::UnknownResponse" : {
          "file" : "lib/WWW/USF/Directory/Exception/UnknownResponse.pm",
-         "version" : "0.003"
+         "version" : "0.003001"
       }
    },
    "release_status" : "stable",
@@ -95,5 +95,5 @@
          "url" : "git://github.com/dougwilson/perl5-www-usf-directory.git"
       }
    },
-   "version" : "0.003"
+   "version" : "0.003001"
 }

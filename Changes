@@ -1,6 +1,6 @@
 Revision history for perl distribution WWW-USF-Directory
 
-TO BE RELEASED
+0.003001 2011-10-22
  [OTHER]
  - Change from Readonly to Cost::Fast.
  - Change from Test::Exception to Test::Fatal.
