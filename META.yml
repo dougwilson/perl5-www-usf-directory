@@ -9,7 +9,7 @@ build_requires:
   Test::Requires: 0.02
   URI::QueryParam: 0
 configure_requires:
-  Module::Build: 0.38
+  Module::Build: 0.31
 dynamic_config: 0
 generated_by: 'Module::Build version 0.38, CPAN::Meta::Converter version 2.112150'
 license: perl
